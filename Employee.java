@@ -11,45 +11,13 @@ package employee;
  */
 public class Employee {
 
-    public String E_ID;
-    public String E_NAME;
-    public String E_SEX;
-    public String E_POS;
-    public String E_ENTRYDATE;
+    public String eId;
+    public String eName;
+    public String eSex;
+    public String ePos;
+    public String eEntrydate;
 
-    public String getE_NAME() {
-        return E_NAME;
-    }
 
-    public void setE_NAME(String E_NAME) {
-        this.E_NAME = E_NAME;
-    }
-
-    public String getE_SEX() {
-        return E_SEX;
-    }
-
-    public void setE_SEX(String E_SEX) {
-        this.E_SEX = E_SEX;
-        char women = E_SEX.charAt(0);
-        char men = E_SEX.charAt(1);
-    }
-
-    public String getE_POS() {
-        return E_POS;
-    }
-
-    public void setE_POS(String E_POS) {
-        this.E_POS = E_POS;
-    }
-
-    public String getE_ENTRYDATE() {
-        return E_ENTRYDATE;
-    }
-
-    public void setE_ENTRYDATE(String E_ENTRYDATE) {
-        this.E_ENTRYDATE = E_ENTRYDATE;
-    }
 //    public Employee(String E_ID, String E_NAME, String E_SEX,String E_POS, String E_ENTRYDATE){
 //        this.E_ID = E_ID;
 //        this.E_NAME = E_NAME;
@@ -57,5 +25,45 @@ public class Employee {
 //        this.E_POS = E_POS;
 //        this.E_ENTRYDATE = E_ENTRYDATE;
 //    }
+
+    public String geteId() {
+        return eId;
+    }
+
+    public String geteName() {
+        return eName;
+    }
+
+    public String geteSex() {
+        return eSex;
+    }
+
+    public String getePos() {
+        return ePos;
+    }
+
+    public String geteEntrydate() {
+        return eEntrydate;
+    }
+
+    public void seteId(String eId) {
+        this.eId = eId;
+    }
+
+    public void seteName(String eName) {
+        this.eName = eName;
+    }
+
+    public void seteSex(String eSex) {
+        this.eSex = eSex;
+    }
+
+    public void setePos(String ePos) {
+        this.ePos = ePos;
+    }
+
+    public void seteEntrydate(String eEntrydate) {
+        this.eEntrydate = eEntrydate;
+    }
     
 }

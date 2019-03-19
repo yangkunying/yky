@@ -5,13 +5,11 @@
  */
 package employee;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
-import java.util.logging.Logger;                                                                                                                                                                                                    
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -19,28 +17,39 @@ import javax.swing.table.DefaultTableModel;
  * @author yangkunying
  */
 public class MainFrame extends javax.swing.JFrame {
-        
+
     /**
      * Creates new form MainFrame
      *
-     * @throws java.io.FileNotFoundException
+     *
+     * @throws java.io.IOException
+     * @throws java.sql.SQLException
+     * @throws java.lang.ClassNotFoundException
      */
-    public MainFrame() throws FileNotFoundException, IOException {
+    public MainFrame() throws IOException, SQLException, ClassNotFoundException {
         initComponents();
-        File f = new File("C:\\Users\\yangkunying\\Desktop\\EMPLOYEEx.csv");
-        //System.out.println(f.exists());
-        FileReader fr = new FileReader(f);
-        BufferedReader br = new BufferedReader(fr);
+        EmployeeService es = new EmployeeService();
+        List<Employee> datas = es.getDataFrom("C:\\Users\\yangkunying\\Desktop\\EMPLOYEEx.csv");
+        //System.out.println(datas);
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        String line;
-        String[] emp;
-        for (; (line = br.readLine()) != null;) {
-            emp = line.split(",");
-            model.addRow(emp);
-            //System.out.println(model);
+        String[] a = new String[5];
+        for (Employee e : datas) {
+            a[1] = e.eName;
+            a[2] = e.eSex;
+            a[3] = e.ePos;
+            a[4] = e.eEntrydate;
+            model.addRow(a);
+            System.out.println(a[1]);
         }
-      
-
+        
+        
+        
+        
+        es.saveToDB(datas);
+//        String sql =  "'a[1]','a[2]','a[3]','a[4]'";
+//        sql
+//                = "insert into EMPLOYEE (eName, eSex, ePos, eEntrydate) "
+//                + "values ('石井', '1', 'HR', '2010-09-21')";
     }
 
     /**
@@ -165,23 +174,30 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String a = jTextField1.getText();
-        for(int row = 0; row< jTable1.getRowCount(); row++){
-            for(int col = 0; col < jTable1.getColumnCount();){
-                if(a.equals(jTable1.getValueAt(row, col))){
-                    jTable1.scrollRectToVisible(jTable1.getCellRect(row, 0, true));
-                    jTable1.setColumnSelectionInterval(row, row);
-                          
+        for (int row = 0; row < jTable1.getRowCount(); row++) {
+            for (int col = 0; col < jTable1.getColumnCount();) {
+                if (a.equals(jTable1.getValueAt(row, col))) {
+                    jTable1.setValueAt(a, row, col);
+
                 }
             }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+    public static void main(String... args) {
+        java.awt.EventQueue.invokeLater(() -> {
 
-    /**
-     * @param args the command line arguments
-     * 
-     */
-    
-    
+            try {
+                new MainFrame().setVisible(true);
+            } catch (IOException ex) {
+                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        });
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
